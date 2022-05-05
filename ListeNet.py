@@ -7,6 +7,7 @@ title = '''
                                    
 '''
 
+from getpass import getpass
 import os, subprocess, re, time, smtplib, sys
 from email.mime.text import MIMEText
 
@@ -121,8 +122,10 @@ def GetInput():
 	except:
 		print("Not a valid delay value")
 		sys.exit()
-	print("Please enter the sender email (gmail) with it's password and the receiver email (free choice).\nSintax: [sendermail],[password],[receivermail] \n")
+	print("Please enter the sender email (gmail) with it's password and the receiver email (free choice).\nSintax: [sendermail],[receivermail] \n")
 	creds = str(input('> '))
+	print("Please enter the sender email's password")
+	creds += str("," + getpass('> '))
 	creds = ''.join(map(str, creds))
 	creds = creds.split(',')
 	os.system("clear")
@@ -189,7 +192,7 @@ broadcast2 = str(broadcast_prefix) + ".1"
 
 scan_ran, sec_delay, creds = GetInput()
 try:
-	crdt, crdt1, crdt2 = creds[0], creds[1], creds[2]
+	crdt, crdt1, crdt2 = creds[0], creds[2], creds[1]
 except:
 	os.system("clear")
 	print("Error: not valid credits")
